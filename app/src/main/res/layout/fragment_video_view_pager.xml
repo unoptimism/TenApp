@@ -13,7 +13,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="200dp"
+            android:layout_marginBottom="50dp"
             >
             <ImageView
                 android:adjustViewBounds="true"
@@ -131,7 +131,7 @@
             <TextView
                 android:id="@+id/video_authorbrief"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:textSize="10dp"
                 android:textColor="#5B5E5F"
                 />
