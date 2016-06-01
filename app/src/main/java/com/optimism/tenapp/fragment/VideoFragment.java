@@ -111,6 +111,8 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
     }
 
 
+
+
     @Override
     public void onTaskFinished(byte[] data) {
 
