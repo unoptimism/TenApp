@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.optimism.tenapp.fragment.ImageFragment;
 import com.optimism.tenapp.fragment.PersonFragment;
@@ -133,6 +134,24 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
             }
 
             transaction.commit();
+        }
+
+
+    }
+    private long lastTime;
+
+    @Override
+    public void onBackPressed() {
+        long ct=System.currentTimeMillis();
+
+        if (ct-lastTime>2000)
+        {
+            Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            lastTime=ct;
+        }
+        else
+        {
+            super.onBackPressed();
         }
 
 
