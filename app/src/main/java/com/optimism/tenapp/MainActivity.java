@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -23,6 +25,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
     private RadioGroup rg;
     private List<Fragment> mFragments;
+    private float downY;
+    private float moveY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +34,10 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         setContentView(R.layout.activity_main);
         FragmentManager manager = getSupportFragmentManager();
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+
 
          rg = (RadioGroup) findViewById(R.id.rg);
 
@@ -138,6 +145,34 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
 
     }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+
+
+        switch (event.getAction()) {
+
+            case MotionEvent.ACTION_DOWN:
+                downY =event.getY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                moveY =event.getY();
+
+                if (moveY < downY) {
+                    rg.setVisibility(View.INVISIBLE);
+                } else {
+                    rg.setVisibility(View.VISIBLE);
+                }
+
+                break;
+
+        }
+
+
+        return true;
+    }
+
     private long lastTime;
 
     @Override

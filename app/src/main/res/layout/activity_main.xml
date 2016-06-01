@@ -6,19 +6,19 @@
     android:layout_height="match_parent"
     tools:context="com.optimism.tenapp.MainActivity">
 
-    <LinearLayout
+    <FrameLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <FrameLayout
-            android:layout_weight="1"
             android:id="@+id/fragment_con"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="match_parent">
         </FrameLayout>
 
         <RadioGroup
+            android:layout_gravity="bottom"
             android:id="@+id/rg"
             android:orientation="horizontal"
             android:gravity="center_vertical"
@@ -77,7 +77,7 @@
                 android:layout_weight="0.5"
                 android:layout_height="match_parent"/>
         </RadioGroup>
-    </LinearLayout>
+    </FrameLayout>
 
 
 
