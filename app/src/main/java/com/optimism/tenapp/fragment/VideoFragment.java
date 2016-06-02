@@ -71,7 +71,6 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
                     } else {
                         MainActivity.rg.setVisibility(View.VISIBLE);
                         iv_anniu.setVisibility(View.VISIBLE);
-
                     }
                     break;
 

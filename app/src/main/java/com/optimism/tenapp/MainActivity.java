@@ -24,6 +24,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
     public static RadioGroup rg;
+
     private List<Fragment> mFragments;
 
 

@@ -9,7 +9,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-
         </activity>
         <activity android:name=".FristActivity">
             <intent-filter>
@@ -17,6 +16,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".YijianActivity">
+        </activity>
+        <activity android:name=".GuanyuActivity">
         </activity>
     </application>
 
