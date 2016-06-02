@@ -75,41 +75,6 @@ public class VideoViewPagerFragment extends Fragment {
     private float downY;
     private float moveY;
 
-    private View scrollView;
-    /**
-     * Fragment中，注册
-     * 接收MainActivity的Touch回调的对象
-     * 重写其中的onTouchEvent函数，并进行该Fragment的逻辑处理
-     */
-    private MainActivity.MyTouchListener mTouchListener = new MainActivity.MyTouchListener() {
-        @Override
-        public void onTouchEvent(MotionEvent event) {
-            int action = event.getAction();
-
-            switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                    downY = event.getY();
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    moveY = event.getY();
-
-                    if (downY > moveY) {
-
-                        MainActivity.rg.setVisibility(View.INVISIBLE);
-                    } else {
-                        MainActivity.rg.setVisibility(View.VISIBLE);
-
-                    }
-
-
-                    break;
-
-
-            }
-
-
-        }
-    };
 
 
 
@@ -133,7 +98,6 @@ public class VideoViewPagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_video_view_pager, container, false);
-        scrollView = view.findViewById(R.id.scrollView22);
         iv_zhuanquan = (ImageView)view.findViewById(R.id.iv_zhuanquan);
         Drawable drawable = iv_zhuanquan.getDrawable();
         mAnimationDrawable = (AnimationDrawable) drawable;
@@ -234,16 +198,7 @@ public class VideoViewPagerFragment extends Fragment {
 
 
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        //在该Fragment的构造函数中注册mTouchListener的回调
-        if(mTouchListener!=null){
-            if(getActivity()!=null){
-                ((MainActivity)getActivity()).registerMyTouchListener(mTouchListener);
-            }
-        }
-    }
+
 
 
 
