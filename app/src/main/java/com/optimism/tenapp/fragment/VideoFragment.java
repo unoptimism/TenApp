@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.optimism.mylibrary.NetworkTask;
 import com.optimism.mylibrary.NetworkTaskCallback;
 import com.optimism.tenapp.MainActivity;
 import com.optimism.tenapp.MyAdapter;
 import com.optimism.tenapp.R;
+import com.optimism.tenapp.viewpager.BlankFragment;
 import com.optimism.tenapp.viewpager.VideoViewPagerFragment;
 
 import org.json.JSONArray;
@@ -80,7 +82,8 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
 
         }
     };
-
+    private float downXx;
+    private float moveXx;
 
 
     @Override
@@ -141,21 +144,30 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
     }
 
     @Override
-    public void onPageSelected(int position) {
+    public void onPageSelected( int position) {
 
         mDays=position;
         getTime();
 
+        if (position == 0) {
+            mViewPager.setCurrentItem(1);
+            Toast.makeText(getActivity(), "已经是最新内容", Toast.LENGTH_SHORT).show();
+        }
+        else if (position == mList.size()-1) {
+            mViewPager.setCurrentItem(mList.size()-2);
+            Toast.makeText(getActivity(), "已经到末页", Toast.LENGTH_SHORT).show();
 
-
-
+        }
         changeDate();
+
 
 
     }
 
     @Override
-    public void onPageScrollStateChanged(int state) {
+    public void onPageScrollStateChanged( int state) {
+
+
 
     }
 
@@ -189,13 +201,15 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
             e.printStackTrace();
         }
 
+        mList.add(new BlankFragment());
         for (int i = 0; i <idList.size(); i++) {
             Fragment f = new VideoViewPagerFragment(idList.get(i));
             mList.add(f);
 
         }
+        mList.add(new BlankFragment());
         mMyAdapter.notifyDataSetChanged();
-
+        mViewPager.setCurrentItem(1);
 
     }
 
@@ -338,7 +352,7 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
 
         Calendar c = Calendar.getInstance();
         c.setTime(mD);
-
+        c.add(Calendar.DAY_OF_YEAR, 1);
         c.add(Calendar.DAY_OF_YEAR,-mDays);
 
         mWeeks = c.get(Calendar.DAY_OF_WEEK);

@@ -11,12 +11,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.optimism.mylibrary.NetworkTask;
 import com.optimism.mylibrary.NetworkTaskCallback;
 import com.optimism.tenapp.MainActivity;
 import com.optimism.tenapp.MyAdapter;
 import com.optimism.tenapp.R;
+import com.optimism.tenapp.viewpager.BlankFragment;
 import com.optimism.tenapp.viewpager.ImageViewPagerFragment;
 import com.optimism.tenapp.viewpager.VideoViewPagerFragment;
 
@@ -167,12 +169,18 @@ public class ImageFragment extends Fragment implements NetworkTaskCallback, View
             e.printStackTrace();
         }
 
+        mList.add(new BlankFragment());
+
         for (int i = 0; i <idList.size(); i++) {
             Fragment f = new ImageViewPagerFragment(idList.get(i));
             mList.add(f);
 
         }
+        mList.add(new BlankFragment());
+
         mMyAdapter.notifyDataSetChanged();
+        mViewPager.setCurrentItem(1);
+
     }
 
     private void changeDate() {
@@ -314,6 +322,8 @@ public class ImageFragment extends Fragment implements NetworkTaskCallback, View
         Calendar c = Calendar.getInstance();
         c.setTime(mD);
 
+        c.add(Calendar.DAY_OF_YEAR, 1);
+
         c.add(Calendar.DAY_OF_YEAR,-mDays);
 
         mWeeks = c.get(Calendar.DAY_OF_WEEK);
@@ -334,6 +344,16 @@ public class ImageFragment extends Fragment implements NetworkTaskCallback, View
         mDays=position;
         getTime();
 
+
+        if (position == 0) {
+            mViewPager.setCurrentItem(1);
+            Toast.makeText(getActivity(), "已经是最新内容", Toast.LENGTH_SHORT).show();
+        }
+        else if (position == mList.size()-1) {
+            mViewPager.setCurrentItem(mList.size()-2);
+            Toast.makeText(getActivity(), "已经到末页", Toast.LENGTH_SHORT).show();
+
+        }
         changeDate();
     }
 
