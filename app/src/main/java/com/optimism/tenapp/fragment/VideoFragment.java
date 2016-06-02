@@ -1,17 +1,21 @@
 package com.optimism.tenapp.fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 import com.optimism.mylibrary.NetworkTask;
 import com.optimism.mylibrary.NetworkTaskCallback;
+import com.optimism.tenapp.MainActivity;
 import com.optimism.tenapp.MyAdapter;
 import com.optimism.tenapp.R;
 import com.optimism.tenapp.viewpager.VideoViewPagerFragment;
@@ -47,6 +51,50 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
     private int mWeeks;
     private int mDays=0;
     private Date mD;
+    private float downY;
+    private float moveY;
+    private static ImageView iv_anniu;
+    private MainActivity.MyTouchListener mTouchListener = new MainActivity.MyTouchListener() {
+        @Override
+        public void onTouchEvent(MotionEvent event) {
+            int action = event.getAction();
+            switch (action) {
+                case MotionEvent.ACTION_DOWN:
+                    downY = event.getY();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    moveY = event.getY();
+
+                    if (downY > moveY) {
+                        iv_anniu.setVisibility(View.INVISIBLE);
+                        MainActivity.rg.setVisibility(View.INVISIBLE);
+                    } else {
+                        MainActivity.rg.setVisibility(View.VISIBLE);
+                        iv_anniu.setVisibility(View.VISIBLE);
+
+                    }
+                    break;
+
+
+            }
+
+
+        }
+    };
+
+
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        //在该Fragment的构造函数中注册mTouchListener的回调
+        if(mTouchListener!=null){
+            if(getActivity()!=null){
+                ((MainActivity)getActivity()).registerMyTouchListener(mTouchListener);
+            }
+        }
+    }
+
 
     public VideoFragment() {
 
@@ -62,12 +110,14 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
         mNetworkTask1.execute("http://api.shigeten.net/api/Critic/GetCriticList");
 
 
+
         View view = inflater.inflate(R.layout.fragment_video, container, false);
         mViewPager = (ViewPager) view.findViewById(R.id.vp_video);
         iv1 = (ImageView) view.findViewById(R.id.r1);
         iv2 = (ImageView) view.findViewById(R.id.r2);
         iv_mouth = (ImageView) view.findViewById(R.id.iv_mouth);
         iv_week = (ImageView) view.findViewById(R.id.iv_week);
+        iv_anniu = (ImageView) view.findViewById(R.id.anniu);
         mMyAdapter = new MyAdapter(getChildFragmentManager(), mList);
 
         mViewPager.setAdapter(mMyAdapter);
@@ -299,6 +349,7 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
         week = mWeeks;
 
     }
+
 
 
 

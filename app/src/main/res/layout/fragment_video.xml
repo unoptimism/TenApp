@@ -87,6 +87,7 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/anniu"
         android:layout_width="40dp"
         android:layout_height="150dp"
         android:layout_gravity="bottom|right"

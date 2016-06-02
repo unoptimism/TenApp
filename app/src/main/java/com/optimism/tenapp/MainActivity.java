@@ -23,10 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
-    private RadioGroup rg;
+    public static RadioGroup rg;
     private List<Fragment> mFragments;
-    private float downY;
-    private float moveY;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         }
 
 
+
         rg.setOnCheckedChangeListener(this);
     }
 
@@ -147,31 +147,9 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
     }
 
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
 
 
-        switch (event.getAction()) {
 
-            case MotionEvent.ACTION_DOWN:
-                downY =event.getY();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                moveY =event.getY();
-
-                if (moveY < downY) {
-                    rg.setVisibility(View.INVISIBLE);
-                } else {
-                    rg.setVisibility(View.VISIBLE);
-                }
-
-                break;
-
-        }
-
-
-        return true;
-    }
 
     private long lastTime;
 
@@ -191,4 +169,53 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
 
     }
+
+
+
+
+
+    /**
+     * 回调接口
+     * @author zhaoxin5
+     *
+     */
+    public interface MyTouchListener
+    {
+         void onTouchEvent(MotionEvent event);
+    }
+
+    /*
+     * 保存MyTouchListener接口的列表
+     */
+    private ArrayList<MyTouchListener> myTouchListeners = new ArrayList<MainActivity.MyTouchListener>();
+
+    /**
+     * 提供给Fragment通过getActivity()方法来注册自己的触摸事件的方法
+     * @param listener
+     */
+    public void registerMyTouchListener(MyTouchListener listener)
+    {
+        myTouchListeners.add(listener);
+    }
+
+    /**
+     * 提供给Fragment通过getActivity()方法来取消注册自己的触摸事件的方法
+     * @param listener
+     */
+    public void unRegisterMyTouchListener(MyTouchListener listener)
+    {
+        myTouchListeners.remove( listener );
+    }
+
+    /**
+     * 分发触摸事件给所有注册了MyTouchListener的接口
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        for (MyTouchListener listener : myTouchListeners) {
+            listener.onTouchEvent(ev);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
 }
