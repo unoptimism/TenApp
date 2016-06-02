@@ -53,9 +53,10 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
     private int mWeeks;
     private int mDays=0;
     private Date mD;
+    private static ImageView iv_anniu;
     private float downY;
     private float moveY;
-    private static ImageView iv_anniu;
+
     private MainActivity.MyTouchListener mTouchListener = new MainActivity.MyTouchListener() {
         @Override
         public void onTouchEvent(MotionEvent event) {
@@ -82,8 +83,7 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
 
         }
     };
-    private float downXx;
-    private float moveXx;
+
 
 
     @Override
@@ -97,6 +97,16 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
         }
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(mTouchListener!=null){
+            if(getActivity()!=null){
+                ((MainActivity)getActivity()).registerMyTouchListener(mTouchListener);
+            }
+        }
+    }
 
     public VideoFragment() {
 

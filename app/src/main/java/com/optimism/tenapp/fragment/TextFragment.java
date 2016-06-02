@@ -73,15 +73,13 @@ public class TextFragment extends Fragment implements NetworkTaskCallback, ViewP
 
                     if (downY > moveY) {
                         iv_anniu.setVisibility(View.INVISIBLE);
-                        MainActivity.rg.setVisibility(View.INVISIBLE);
                     } else {
-                        MainActivity.rg.setVisibility(View.VISIBLE);
                         iv_anniu.setVisibility(View.VISIBLE);
                     }
 
 
 
-                    break;
+//                    break;
 
 
             }

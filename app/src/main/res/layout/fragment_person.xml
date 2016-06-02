@@ -5,40 +5,51 @@
               android:orientation="vertical"
              tools:context="com.optimism.tenapp.fragment.PersonFragment">
 
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.6"
+    <LinearLayout
         android:background="#F3604C"
-        android:gravity="center"
-        >
-        <ImageView
-            android:id="@+id/login"
-            android:layout_width="62dp"
-            android:layout_height="62dp"
-            android:src="@mipmap/avator_login"
-            android:layout_gravity="center"
 
-            />
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:gravity="center"
+            >
+            <ImageView
+                android:id="@+id/login"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:src="@mipmap/avator_login"
+                android:layout_gravity="center"
 
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@mipmap/avator_whiteline"
-            android:layout_gravity="center"
-            />
+                />
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@mipmap/avator_whiteline"
+                android:layout_gravity="center"
+                />
+
+
+        </FrameLayout>
+
+
         <TextView
+            android:layout_marginBottom="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="点击用QQ登录"
             android:textSize="12sp"
             android:textColor="#FFF"
             android:layout_gravity="center_horizontal"
-            android:paddingTop="110dp"
             />
+    </LinearLayout>
 
-    </FrameLayout>
+
 
     <LinearLayout
 

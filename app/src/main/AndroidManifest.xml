@@ -21,6 +21,10 @@
         </activity>
         <activity android:name=".GuanyuActivity">
         </activity>
+        <activity android:name=".ZitiActivity">
+        </activity>
+        <activity android:name=".ImageActivity">
+        </activity>
     </application>
 
 </manifest>

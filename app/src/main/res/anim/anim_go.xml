@@ -10,9 +10,9 @@
 
     <scale
         android:duration="5000"
-        android:fromXScale="700dp"
-        android:fromYScale="700dp"
-        android:toXScale="750dp"
-        android:toYScale="750dp"
+        android:fromXScale="850dp"
+        android:fromYScale="850dp"
+        android:toXScale="850dp"
+        android:toYScale="850dp"
         />
 </set>

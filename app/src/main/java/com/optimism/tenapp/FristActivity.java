@@ -32,7 +32,7 @@ public class FristActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                Thread.sleep(1500);
+                Thread.sleep(5500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

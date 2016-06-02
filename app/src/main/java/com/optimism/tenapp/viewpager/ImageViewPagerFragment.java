@@ -1,6 +1,7 @@
 package com.optimism.tenapp.viewpager;
 
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.optimism.mylibrary.NetworkTask;
 import com.optimism.mylibrary.NetworkTaskCallback;
+import com.optimism.tenapp.ImageActivity;
 import com.optimism.tenapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -65,6 +67,16 @@ public class ImageViewPagerFragment extends Fragment {
         tv_title = (TextView) view.findViewById(R.id.image_title);
         tv_aut = (TextView) view.findViewById(R.id.image_aut);
         mTextView = (TextView) view.findViewById(R.id.image_text);
+
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), ImageActivity.class);
+                it.putExtra("ivUrl", ivUrl);
+                startActivity(it);
+
+            }
+        });
 
         iv_zhuanquan = (ImageView)view.findViewById(R.id.iv_zhuanquan);
         Drawable drawable = iv_zhuanquan.getDrawable();

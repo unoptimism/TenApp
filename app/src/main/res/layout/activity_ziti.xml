@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.optimism.tenapp.ZitiActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#d6d7d7">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="back"
+            android:src="@mipmap/back"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="字体设置"
+            android:textSize="20sp"
+            />
+
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="        十月去湖南参加一场婚礼，从南京坐高铁过去长沙，五个小时到了那里。接我们的人搞错了地点，没有在新的火车站等我们，而是在旧的长沙火车站，于是我们坐地铁过去汇合。长沙的地铁不知道哪一年已经开通，灯光白亮，车厢的广播里报着一站一站熟悉的地名，长沙火车站前的广场上依旧是汹涌的人群和若有若无的槟榔味道，而我则不太相信自己又一次回到了这里。
+"/>
+
+    <TextView
+        android:id="@+id/tv2"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="------《婚礼》"
+        />
+
+
+    <RadioGroup
+        android:id="@+id/tizirg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <RadioButton
+            android:id="@+id/ziti1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/xiao_tab"
+            android:gravity="center_vertical"
+            android:text="眼神不好"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"/>
+
+        <RadioButton
+            android:id="@+id/ziti2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableTop="@drawable/zhong_tab"
+            android:gravity="center_vertical"
+            android:text="不大不小"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"/>
+
+        <RadioButton
+            android:id="@+id/ziti3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:drawableTop="@drawable/da_tab"
+            android:gravity="center_vertical"
+            android:text="我要大大"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+    </RadioGroup>
+
+
+</LinearLayout>

@@ -73,9 +73,7 @@ public class ImageFragment extends Fragment implements NetworkTaskCallback, View
 
                     if (downY > moveY) {
                         iv_anniu.setVisibility(View.INVISIBLE);
-                        MainActivity.rg.setVisibility(View.INVISIBLE);
                     } else {
-                        MainActivity.rg.setVisibility(View.VISIBLE);
                         iv_anniu.setVisibility(View.VISIBLE);
                     }
 
