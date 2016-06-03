@@ -1,6 +1,7 @@
 package com.optimism.tenapp;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,8 @@ public class ZitiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ziti);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
     }
 
     public void back(View view) {
