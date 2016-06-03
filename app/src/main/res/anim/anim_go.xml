@@ -2,17 +2,17 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android">
 
     <translate
-        android:duration="6000"
+        android:duration="8000"
         android:fromXDelta="0"
-        android:toXDelta="-200"
+        android:toXDelta="-150"
 
         />
 
     <scale
         android:duration="5000"
-        android:fromXScale="850dp"
-        android:fromYScale="850dp"
-        android:toXScale="850dp"
-        android:toYScale="850dp"
+        android:fromXScale="750dp"
+        android:fromYScale="750dp"
+        android:toXScale="750dp"
+        android:toYScale="750dp"
         />
 </set>
