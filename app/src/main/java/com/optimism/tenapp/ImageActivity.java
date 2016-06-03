@@ -17,6 +17,8 @@ public class ImageActivity extends AppCompatActivity {
     private ImageView iv;
     private float mX=0;
     private float mY=0;
+    private float mMoveX=0;
+    private float mMoveY=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,22 +76,18 @@ public class ImageActivity extends AppCompatActivity {
                                     mX = (kuan / xxx) * mX;
                                     mY = (gao / yyy) * mY;
                                 }
-
-
-
-                                changeXY();
+                                imageScale();
                                 Log.d("I", i + "");
                                 Log.d("XX:", xxx + "");
                                 Log.d("YY:", yyy + "");
                             }
-
-
                         }
-
-
+                        else if (event.getPointerCount() == 1) {
+                            mMoveX = event.getX()- lastX;
+                            mMoveY = event.getY()- lastY;
+                            imageMove();
+                        }
                         break;
-
-
 
                 }
 
@@ -100,9 +98,17 @@ public class ImageActivity extends AppCompatActivity {
 
     }
 
-    private void changeXY() {
+    private void imageScale() {
         iv.setScaleX(mX);
         iv.setScaleY(mY);
 
+    }
+
+
+    private void imageMove() {
+        float x = iv.getX();
+        float y = iv.getY();
+        iv.setX(x+mMoveX);
+        iv.setY(y+mMoveY);
     }
 }
