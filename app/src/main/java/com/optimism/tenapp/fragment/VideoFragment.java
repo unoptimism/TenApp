@@ -68,7 +68,7 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
                 case MotionEvent.ACTION_MOVE:
                     moveY = event.getY();
 
-                    if (downY > moveY) {
+                    if (downY > moveY+20) {
                         iv_anniu.setVisibility(View.INVISIBLE);
                         MainActivity.rg.setVisibility(View.INVISIBLE);
                     } else {
