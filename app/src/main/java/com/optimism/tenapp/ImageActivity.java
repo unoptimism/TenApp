@@ -15,6 +15,8 @@ import com.squareup.picasso.Picasso;
 
 public class ImageActivity extends AppCompatActivity {
     private ImageView iv;
+    private float mX=0;
+    private float mY=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +33,13 @@ public class ImageActivity extends AppCompatActivity {
 
 
         iv.setOnTouchListener(new View.OnTouchListener() {
-            float lastL = 0;
             float lastX;
             float lastY;
             int i;
             float xxx;
             float yyy;
-
+            float kuan;
+            float gao;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
@@ -53,10 +55,9 @@ public class ImageActivity extends AppCompatActivity {
                         break;
 
                     case MotionEvent.ACTION_MOVE:
-                        if (event.getPointerCount() == 2) {
-                            float kuan = event.getX(0) - event.getX(1);
-                            float gao = event.getY(0) - event.getY(1);
-                            lastL = (float) Math.sqrt(kuan * kuan + gao * gao);
+                        if (event.getPointerCount() >= 2) {
+                           kuan = event.getX(0) - event.getX(1);
+                            gao= event.getY(0) - event.getY(1);
                             if (i == 0) {
                                 xxx = kuan;
                                 yyy = gao;
@@ -65,8 +66,18 @@ public class ImageActivity extends AppCompatActivity {
                                 Log.d("YY:", yyy+"");
                                 i++;
                             } else {
-                                iv.setScaleX(kuan/xxx);
-                                iv.setScaleY(gao/yyy);
+
+                                if (mX == 0 && mY == 0) {
+                                    mX = (kuan / xxx);
+                                    mY = (gao / yyy);
+                                } else {
+                                    mX = (kuan / xxx) * mX;
+                                    mY = (gao / yyy) * mY;
+                                }
+
+
+
+                                changeXY();
                                 Log.d("I", i + "");
                                 Log.d("XX:", xxx + "");
                                 Log.d("YY:", yyy + "");
@@ -79,12 +90,19 @@ public class ImageActivity extends AppCompatActivity {
                         break;
 
 
+
                 }
 
                 return true;
             }
         });
 
+
+    }
+
+    private void changeXY() {
+        iv.setScaleX(mX);
+        iv.setScaleY(mY);
 
     }
 }
