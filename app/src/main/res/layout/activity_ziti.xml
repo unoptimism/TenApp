@@ -30,7 +30,7 @@
     </FrameLayout>
 
 
-    <TextView
+    <com.optimism.tenapp.view.MyTextView
         android:id="@+id/tv1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
         android:text="        十月去湖南参加一场婚礼，从南京坐高铁过去长沙，五个小时到了那里。接我们的人搞错了地点，没有在新的火车站等我们，而是在旧的长沙火车站，于是我们坐地铁过去汇合。长沙的地铁不知道哪一年已经开通，灯光白亮，车厢的广播里报着一站一站熟悉的地名，长沙火车站前的广场上依旧是汹涌的人群和若有若无的槟榔味道，而我则不太相信自己又一次回到了这里。
 "/>
 
-    <TextView
+    <com.optimism.tenapp.view.MyTextView
         android:id="@+id/tv2"
 
         android:layout_width="match_parent"
@@ -63,6 +63,7 @@
             android:layout_weight="1"/>
 
         <RadioButton
+            android:onClick="xiao"
             android:id="@+id/ziti1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,6 +79,7 @@
             android:layout_weight="0.7"/>
 
         <RadioButton
+            android:onClick="zhong"
             android:id="@+id/ziti2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,6 +95,7 @@
             android:layout_weight="0.7"/>
 
         <RadioButton
+            android:onClick="da"
             android:id="@+id/ziti3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
