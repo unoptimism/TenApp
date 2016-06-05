@@ -152,30 +152,12 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
 
 
 
-    private long lastTime;
-
-    @Override
-    public void onBackPressed() {
-        long ct=System.currentTimeMillis();
-
-        if (ct-lastTime>2000)
-        {
-            Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-            lastTime=ct;
-        }
-        else
-        {
-            super.onBackPressed();
-        }
-
-
-    }
 
 
 
 
 
-    /**
+     /**
      * 回调接口
      * @author zhaoxin5
      *
@@ -205,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
      */
     public void unRegisterMyTouchListener(MyTouchListener listener)
     {
-        myTouchListeners.remove( listener );
+        myTouchListeners.remove(listener);
     }
 
     /**
@@ -219,4 +201,22 @@ public class MainActivity extends AppCompatActivity implements RadioGroup.OnChec
         return super.dispatchTouchEvent(ev);
     }
 
+
+    private long lastTime;
+    @Override
+    public void onBackPressed() {
+        long ct=System.currentTimeMillis();
+
+        if (ct-lastTime>2000)
+        {
+            Toast.makeText(MainActivity.this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            lastTime=ct;
+        }
+        else
+        {
+            super.onBackPressed();
+        }
+
+
+    }
 }

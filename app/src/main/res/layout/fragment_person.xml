@@ -60,6 +60,7 @@
         >
         <Button
             android:id="@+id/shoucang"
+            android:onClick="shoucang"
             android:paddingLeft="10dp"
             android:drawableLeft="@mipmap/setting_favorite"
             android:drawableRight="@mipmap/setting_arrow"

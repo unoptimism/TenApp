@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.optimism.tenapp.GuanyuActivity;
 import com.optimism.tenapp.MainActivity;
 import com.optimism.tenapp.R;
+import com.optimism.tenapp.ShoucangActivity;
 import com.optimism.tenapp.YijianActivity;
 import com.optimism.tenapp.ZitiActivity;
 
@@ -30,7 +31,7 @@ public class PersonFragment extends Fragment implements RadioGroup.OnCheckedChan
     private Button guanyu;
     private Button ziti;
     private RadioGroup rg;
-
+    private Button shoucang;
 
 
 
@@ -44,6 +45,7 @@ public class PersonFragment extends Fragment implements RadioGroup.OnCheckedChan
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_person, container, false);
+        shoucang = (Button) view.findViewById(R.id.shoucang);
         rg = (RadioGroup) view.findViewById(R.id.rg);
         yijian = (Button) view.findViewById(R.id.yijian);
         yijian.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +57,17 @@ public class PersonFragment extends Fragment implements RadioGroup.OnCheckedChan
             }
         });
 
+
+
+        shoucang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ShoucangActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
 
         guanyu = (Button) view.findViewById(R.id.guanyu);
         guanyu.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +90,7 @@ public class PersonFragment extends Fragment implements RadioGroup.OnCheckedChan
         });
 
         rg.setOnCheckedChangeListener(this);
+
 
         return view;
 

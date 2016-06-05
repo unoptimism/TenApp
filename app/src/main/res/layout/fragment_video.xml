@@ -87,12 +87,15 @@
     </LinearLayout>
 
     <ImageView
+        android:clickable="true"
         android:id="@+id/anniu"
         android:layout_width="40dp"
         android:layout_height="150dp"
         android:layout_gravity="bottom|right"
         android:layout_margin="10dp"
         android:src="@mipmap/icon_favorite_tip"/>
+
+
 
 
 </FrameLayout>

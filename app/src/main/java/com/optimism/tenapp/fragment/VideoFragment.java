@@ -2,6 +2,7 @@ package com.optimism.tenapp.fragment;
 
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -21,11 +22,13 @@ import com.optimism.tenapp.MyAdapter;
 import com.optimism.tenapp.R;
 import com.optimism.tenapp.viewpager.BlankFragment;
 import com.optimism.tenapp.viewpager.VideoViewPagerFragment;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,6 +59,7 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
     private static ImageView iv_anniu;
     private float downY;
     private float moveY;
+    private ImageView anniu;
 
     private MainActivity.MyTouchListener mTouchListener = new MainActivity.MyTouchListener() {
         @Override
@@ -83,7 +87,7 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
 
         }
     };
-
+    private NetworkTask networkTask2;
 
 
     @Override
@@ -112,7 +116,7 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
 
     }
 
-
+    private SQLiteDatabase db;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -120,6 +124,9 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
         idList = new ArrayList<>();
         mNetworkTask1 = new NetworkTask(getContext(), this);
         mNetworkTask1.execute("http://api.shigeten.net/api/Critic/GetCriticList");
+        String path = getActivity().getCacheDir().getAbsolutePath() + File.separator + "MyDown.db";// 数据库文件的绝对路径
+        db = SQLiteDatabase.openOrCreateDatabase(path, null);
+
 
 
 
@@ -143,8 +150,91 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
 
         mMyAdapter.notifyDataSetChanged();
         mViewPager.addOnPageChangeListener(this);
+
+
+        anniu = (ImageView) view.findViewById(R.id.anniu);
+        anniu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                db.execSQL("create table if not exists Video(_id integer primary key autoincrement,"+
+                        "id integer," +
+                        "publishtime varchar," +
+                        "shoucangTitle varchar," +
+                        "shoucangAut varchar," +
+                        "shoucangAutbf varchar," +
+                        "shoucangTimes varchar,"+
+                        "shoucangText1 varchar," +
+                        "shoucangText2 varchar," +
+                        "shoucangText3 varchar," +
+                        "shoucangText4 varchar," +
+                        "shoucangText5 varchar," +
+                        "shoucangRealtitle varchar,"+
+                        "shoucangImage1 varchar," +
+                        "shoucangImage2 varchar," +
+                        "shoucangImage3 varchar," +
+                        "shoucangImage4 varchar," +
+                        "shoucangImage5 varchar" +
+                        ")");
+
+
+                Toast.makeText(getActivity(), "收藏成功!", Toast.LENGTH_SHORT).show();
+
+                int currentItem = mViewPager.getCurrentItem();
+                Integer shoucangID = idList.get(currentItem -1);
+                if (shoucangID != 0) {
+
+                    networkTask2 = new NetworkTask(getContext(), new NetworkTaskCallback() {
+                        @Override
+                        public void onTaskFinished(byte[] data) {
+                            try {
+
+                                String msg = new String(data, "UTF-8");
+                                JSONObject jsonObject = new JSONObject(msg);
+                                String id = jsonObject.getString("id");
+                                String publishtime =jsonObject.getString("publishtime");
+                                String shoucangTitle = jsonObject.getString("title");
+                                String shoucangAut = jsonObject.getString("author");
+                                String shoucangAutbf = jsonObject.getString("authorbrief");
+                                String shoucangTimes = jsonObject.getInt("times")+"";
+                                String shoucangText1 = jsonObject.getString("text1");
+                                String shoucangText2 = jsonObject.getString("text2");
+                                String shoucangText3 = jsonObject.getString("text3");
+                                String shoucangText4 = jsonObject.getString("text4");
+                                String shoucangText5 = jsonObject.getString("text5");
+                                String shoucangRealtitle = jsonObject.getString("realtitle");
+                                String shoucangImage1="http://api.shigeten.net/"+jsonObject.getString("image1");
+                                String shoucangImage2="http://api.shigeten.net/"+jsonObject.getString("image2");
+                                String shoucangImage3="http://api.shigeten.net/"+jsonObject.getString("image3");
+                                String shoucangImage4="http://api.shigeten.net/"+jsonObject.getString("image4");
+                                String shoucangImage5="http://api.shigeten.net/"+jsonObject.getString("imageforplay");
+
+
+
+                                db.execSQL("insert into video (id,publishtime,shoucangTitle,shoucangAut,shoucangAutbf,shoucangTimes,shoucangText1,shoucangText2,shoucangText3,shoucangText4,shoucangText5,shoucangRealtitle,shoucangImage1,shoucangImage2,shoucangImage3,shoucangImage4,shoucangImage5) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", // ?是占位符
+                                        new Object[]{id, publishtime, shoucangTitle, shoucangAut, shoucangAutbf, shoucangTimes, shoucangText1, shoucangText2, shoucangText3, shoucangText4, shoucangText5, shoucangRealtitle, shoucangImage1, shoucangImage2, shoucangImage3, shoucangImage4, shoucangImage5});
+
+
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+                    networkTask2.execute("http://api.shigeten.net/api/Critic/GetCriticContent?id=" + shoucangID);
+
+
+                }
+            }
+        });
+
+
         return view;
     }
+
+
 
 
 
@@ -294,11 +384,14 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
                 iv_mouth.setImageResource(R.mipmap.month_10);
                 break;
             case 11:
+
+
                 iv_mouth.setImageResource(R.mipmap.month_11);
                 break;
             case 12:
                 iv_mouth.setImageResource(R.mipmap.month_12);
                 break;
+
 
 
         }

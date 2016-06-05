@@ -2,6 +2,7 @@ package com.optimism.tenapp.fragment;
 
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -27,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,7 +41,7 @@ import java.util.List;
  */
 public class TextFragment extends Fragment implements NetworkTaskCallback, ViewPager.OnPageChangeListener {
 
-
+    private ImageView anniu;
     private NetworkTask mNetworkTask1;
     private List<Integer> idList;
     private List<Fragment> mList;
@@ -85,6 +87,8 @@ public class TextFragment extends Fragment implements NetworkTaskCallback, ViewP
 
         }
     };
+    private NetworkTask networkTask2;
+    private SQLiteDatabase db;
 
     @Override
     public void onAttach(Activity activity) {
@@ -109,7 +113,8 @@ public class TextFragment extends Fragment implements NetworkTaskCallback, ViewP
         idList = new ArrayList<>();
         mNetworkTask1 = new NetworkTask(getContext(), this);
         mNetworkTask1.execute("http://api.shigeten.net/api/Novel/GetNovelList");
-
+        String path = getActivity().getCacheDir().getAbsolutePath() + File.separator + "MyDown.db";// 数据库文件的绝对路径
+        db = SQLiteDatabase.openOrCreateDatabase(path, null);
 
 
 
@@ -134,6 +139,70 @@ public class TextFragment extends Fragment implements NetworkTaskCallback, ViewP
 
         mMyAdapter.notifyDataSetChanged();
         mViewPager.addOnPageChangeListener(this);
+
+
+
+
+        anniu = (ImageView) view.findViewById(R.id.anniu);
+        anniu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                db.execSQL("create table if not exists text(_id integer primary key autoincrement," +
+                        "id integer," +
+                        "publishtime varchar," +
+                        "shoucangTitle varchar," +
+                        "shoucangAut varchar," +
+                        "shoucangAutbf varchar," +
+                        "shoucangTimes varchar," +
+                        "shoucangText varchar," +
+                        "shoucangJianjie varchar"+
+                        ")");
+
+
+                Toast.makeText(getActivity(), "收藏成功!", Toast.LENGTH_SHORT).show();
+
+                int currentItem = mViewPager.getCurrentItem();
+                Integer shoucangID = idList.get(currentItem - 1);
+                if (shoucangID != 0) {
+
+                    networkTask2 = new NetworkTask(getContext(), new NetworkTaskCallback() {
+                        @Override
+                        public void onTaskFinished(byte[] data) {
+                            try {
+                                String msg = new String(data, "UTF-8");
+                                JSONObject jsonObject = new JSONObject(msg);
+
+                                String id = jsonObject.getString("id");
+                                String publishtime = jsonObject.getString("publishtime");
+                                String shoucangTitle = jsonObject.getString("title");
+                                String shoucangAut = jsonObject.getString("author");
+                                String shoucangAutbf = jsonObject.getString("authorbrief");
+                                String shoucangTimes = jsonObject.getString("times");
+                                String shoucangText = jsonObject.getString("text");
+                                String shoucangJianjie = jsonObject.getString("summary");
+
+
+                                db.execSQL("insert into text (id,publishtime,shoucangTitle,shoucangAut,shoucangAutbf,shoucangTimes,shoucangText,shoucangJianjie) values(?,?,?,?,?,?,?,?)", // ?是占位符
+                                        new Object[]{id, publishtime, shoucangTitle, shoucangAut, shoucangAutbf, shoucangTimes, shoucangText, shoucangJianjie});
+
+
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+                    networkTask2.execute("http://api.shigeten.net/api/Novel/GetNovelContent?id=" + shoucangID);
+
+
+                }
+            }
+        });
+
+
         return view;
     }
 

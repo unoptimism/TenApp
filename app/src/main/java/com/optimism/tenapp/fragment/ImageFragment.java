@@ -2,6 +2,7 @@ package com.optimism.tenapp.fragment;
 
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -26,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +39,8 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ImageFragment extends Fragment implements NetworkTaskCallback, ViewPager.OnPageChangeListener {
+
+    private ImageView anniu;
 
     private NetworkTask mNetworkTask1;
     private List<Integer> idList;
@@ -85,6 +89,8 @@ public class ImageFragment extends Fragment implements NetworkTaskCallback, View
 
         }
     };
+    private SQLiteDatabase db;
+    private NetworkTask networkTask2;
 
 
     @Override
@@ -110,6 +116,8 @@ public class ImageFragment extends Fragment implements NetworkTaskCallback, View
         idList = new ArrayList<>();
         mNetworkTask1 = new NetworkTask(getContext(), this);
         mNetworkTask1.execute("http://api.shigeten.net/api/Diagram/GetDiagramList");
+        String path = getActivity().getCacheDir().getAbsolutePath() + File.separator + "MyDown.db";// 数据库文件的绝对路径
+        db = SQLiteDatabase.openOrCreateDatabase(path, null);
 
 
 
@@ -137,6 +145,63 @@ public class ImageFragment extends Fragment implements NetworkTaskCallback, View
         mMyAdapter.notifyDataSetChanged();
         mViewPager.addOnPageChangeListener(this);
 
+
+
+
+        anniu = (ImageView) view.findViewById(R.id.anniu);
+        anniu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                db.execSQL("create table if not exists Image(_id integer primary key autoincrement," +
+                        "id integer," +
+                        "publishtime varchar," +
+                        "shoucangTitle varchar," +
+                        "shoucangAut varchar," +
+                        "shoucangText1 varchar," +
+                        "shoucangText2 varchar" +
+                        ")");
+
+
+                Toast.makeText(getActivity(), "收藏成功!", Toast.LENGTH_SHORT).show();
+
+                int currentItem = mViewPager.getCurrentItem();
+                Integer shoucangID = idList.get(currentItem - 1);
+                if (shoucangID != 0) {
+
+                    networkTask2 = new NetworkTask(getContext(), new NetworkTaskCallback() {
+                        @Override
+                        public void onTaskFinished(byte[] data) {
+                            try {
+                                String msg = new String(data, "UTF-8");
+                                JSONObject jsonObject = new JSONObject(msg);
+
+                                String id = jsonObject.getString("id");
+                                String publishtime = jsonObject.getString("publishtime");
+                                String shoucangTitle = jsonObject.getString("title");
+                                String shoucangAut = jsonObject.getString("author");
+                                String shoucangText1 = jsonObject.getString("text1");
+                                String shoucangText2 = jsonObject.getString("text2");
+
+
+                                db.execSQL("insert into Image (id,publishtime,shoucangTitle,shoucangAut,shoucangText1,shoucangText2) values(?,?,?,?,?,?)", // ?是占位符
+                                        new Object[]{id, publishtime, shoucangTitle, shoucangAut, shoucangText1, shoucangText2});
+
+
+                            } catch (UnsupportedEncodingException e) {
+                                e.printStackTrace();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
+                    networkTask2.execute("http://api.shigeten.net/api/Diagram/GetDiagramContent?id=" + shoucangID);
+
+
+                }
+            }
+        });
 
         return view;
     }
