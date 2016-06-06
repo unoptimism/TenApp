@@ -68,37 +68,37 @@ public class ShoucangActivity extends AppCompatActivity {
             int idIndex = cursorVideo.getColumnIndex("id");
             String id = cursorVideo.getString(idIndex);
 
-            int authorIndex = cursorVideo.getColumnIndex("author");
+            int authorIndex = cursorVideo.getColumnIndex("shoucangAut");
             String author = cursorVideo.getString(authorIndex);
 
 
-            int authorbriefIndex = cursorVideo.getColumnIndex("authorbrief");
+            int authorbriefIndex = cursorVideo.getColumnIndex("shoucangAutbf");
             String authorbrief = cursorVideo.getString(authorbriefIndex);
 
-            int text1Index = cursorVideo.getColumnIndex("text1");
+            int text1Index = cursorVideo.getColumnIndex("shoucangText1");
             String text1 = cursorVideo.getString(text1Index);
 
-            int text2Index = cursorVideo.getColumnIndex("text2");
+            int text2Index = cursorVideo.getColumnIndex("shoucangText2");
             String text2 = cursorVideo.getString(text2Index);
 
-            int text3Index = cursorVideo.getColumnIndex("text3");
+            int text3Index = cursorVideo.getColumnIndex("shoucangText3");
             String text3 = cursorVideo.getString(text3Index);
 
-            int text4Index = cursorVideo.getColumnIndex("text4");
+            int text4Index = cursorVideo.getColumnIndex("shoucangText4");
             String text4 = cursorVideo.getString(text4Index);
 
-            int text5Index = cursorVideo.getColumnIndex("text5");
+            int text5Index = cursorVideo.getColumnIndex("shoucangText5");
             String text5 = cursorVideo.getString(text5Index);
 
-            int image1Index = cursorVideo.getColumnIndex("image1");
+            int image1Index = cursorVideo.getColumnIndex("shoucangImage1");
             String image1 = cursorVideo.getString(image1Index);
-            int image2Index = cursorVideo.getColumnIndex("image2");
+            int image2Index = cursorVideo.getColumnIndex("shoucangImage2");
             String image2 = cursorVideo.getString(image2Index);
-            int image3Index = cursorVideo.getColumnIndex("image3");
+            int image3Index = cursorVideo.getColumnIndex("shoucangImage3");
             String image3 = cursorVideo.getString(image3Index);
-            int image4Index = cursorVideo.getColumnIndex("image4");
+            int image4Index = cursorVideo.getColumnIndex("shoucangImage4");
             String image4 = cursorVideo.getString(image4Index);
-            int image5Index = cursorVideo.getColumnIndex("image5");
+            int image5Index = cursorVideo.getColumnIndex("shoucangImage5");
             String image5 = cursorVideo.getString(image5Index);
 
 
@@ -111,11 +111,11 @@ public class ShoucangActivity extends AppCompatActivity {
             duixiang.text3 = text3;
             duixiang.text4 = text4;
             duixiang.text5 = text5;
-            duixiang.image1 = "http://api.shigeten.net/" + image1;
-            duixiang.image2 = "http://api.shigeten.net/" + image2;
-            duixiang.image3 = "http://api.shigeten.net/" + image3;
-            duixiang.image4 = "http://api.shigeten.net/" + image4;
-            duixiang.image5 = "http://api.shigeten.net/" + image5;
+            duixiang.image1 = image1;
+            duixiang.image2 =image2;
+            duixiang.image3 =image3;
+            duixiang.image4 = image4;
+            duixiang.image5 = image5;
 
             mList1.add(duixiang);
 
@@ -171,7 +171,7 @@ public class ShoucangActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("Video", mList1.get(position));
 
-                intent.putExtra("k", bundle);
+                intent.putExtras(bundle);
 
                 startActivity(intent);
 

@@ -146,13 +146,7 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_gravity="center"
-            android:id="@+id/iv_zhuanquan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/zhuanquan"
-            />
+
     </FrameLayout>
 
 

@@ -2,13 +2,17 @@ package com.optimism.tenapp;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.optimism.mylibrary.NetworkTask;
 import com.optimism.tenapp.viewpager.VideoDuixiang;
+import com.squareup.picasso.Picasso;
 
 public class ShoucangZhanshi extends AppCompatActivity {
 
@@ -32,7 +36,7 @@ public class ShoucangZhanshi extends AppCompatActivity {
 
     private ImageView iv_zhuanquan;
 
-    private String id;
+    private int id;
     private NetworkTask networkTask;
     private String mTitle;
     private String mAuthor;
@@ -55,7 +59,8 @@ public class ShoucangZhanshi extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shoucang_zhanshi);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         tv1 = (TextView) findViewById(R.id.vido_title);
         tv2 = (TextView) findViewById(R.id.vido_author);
         tv3 = (TextView) findViewById(R.id.video_authorbrief);
@@ -79,9 +84,10 @@ public class ShoucangZhanshi extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         VideoDuixiang video = (VideoDuixiang) extras.get("Video");
 
-        id = video.id;
-        mTitle = video.title;
-        mAuthor = video.aut;
+        Log.d("video", video.aut);
+
+        mTitle = video.title.toString();
+        mAuthor = video.aut.toString();
         mAuthorbrief = video.autbf;
         mTimes = video.times;
         mText1 = video.text1;
@@ -98,21 +104,20 @@ public class ShoucangZhanshi extends AppCompatActivity {
         mPushlistime = video.publishtime;
 
         tv1.setText(mTitle);
-        tv2.setText(mAuthor);
-        tv3.setText(mRealtitle);
-//        tv4.setText();
-//        tv5;
-//        tv6;
-//        tv7;
-//        tv8;
-//        tv9;
-//        tv10;
-//
-//        iv1;
-//        iv2;
-//        iv3;
-//        iv4;
-//        iv5;
+        tv2.setText(mAuthor+" | 阅读量："+mTimes);
+        tv3.setText(mAuthorbrief);
+        tv4.setText(mText1);
+        tv5.setText(mText2);
+        tv6.setText(mText3);
+        tv7.setText(mText4);
+        tv8.setText(mText5);
+        tv9.setText(mRealtitle);
+        tv10.setText(mAuthor);
+        Picasso.with(this).load(mImageUrl5).into(iv1);
+        Picasso.with(this).load(mImageUrl1).into(iv2);
+        Picasso.with(this).load(mImageUrl2).into(iv3);
+        Picasso.with(this).load(mImageUrl3).into(iv4);
+        Picasso.with(this).load(mImageUrl4).into(iv5);
 
     }
 }
