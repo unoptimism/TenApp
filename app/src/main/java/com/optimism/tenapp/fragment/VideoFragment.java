@@ -126,7 +126,25 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
         mNetworkTask1.execute("http://api.shigeten.net/api/Critic/GetCriticList");
         String path = getActivity().getCacheDir().getAbsolutePath() + File.separator + "MyDown.db";// 数据库文件的绝对路径
         db = SQLiteDatabase.openOrCreateDatabase(path, null);
-
+        db.execSQL("create table if not exists Video(_id integer primary key autoincrement,"+
+                "id integer," +
+                "publishtime varchar," +
+                "shoucangTitle varchar," +
+                "shoucangAut varchar," +
+                "shoucangAutbf varchar," +
+                "shoucangTimes varchar,"+
+                "shoucangText1 varchar," +
+                "shoucangText2 varchar," +
+                "shoucangText3 varchar," +
+                "shoucangText4 varchar," +
+                "shoucangText5 varchar," +
+                "shoucangRealtitle varchar,"+
+                "shoucangImage1 varchar," +
+                "shoucangImage2 varchar," +
+                "shoucangImage3 varchar," +
+                "shoucangImage4 varchar," +
+                "shoucangImage5 varchar" +
+                ")");
 
 
 
@@ -157,25 +175,7 @@ public class VideoFragment extends Fragment implements ViewPager.OnPageChangeLis
             @Override
             public void onClick(View v) {
 
-                db.execSQL("create table if not exists Video(_id integer primary key autoincrement,"+
-                        "id integer," +
-                        "publishtime varchar," +
-                        "shoucangTitle varchar," +
-                        "shoucangAut varchar," +
-                        "shoucangAutbf varchar," +
-                        "shoucangTimes varchar,"+
-                        "shoucangText1 varchar," +
-                        "shoucangText2 varchar," +
-                        "shoucangText3 varchar," +
-                        "shoucangText4 varchar," +
-                        "shoucangText5 varchar," +
-                        "shoucangRealtitle varchar,"+
-                        "shoucangImage1 varchar," +
-                        "shoucangImage2 varchar," +
-                        "shoucangImage3 varchar," +
-                        "shoucangImage4 varchar," +
-                        "shoucangImage5 varchar" +
-                        ")");
+
 
 
                 Toast.makeText(getActivity(), "收藏成功!", Toast.LENGTH_SHORT).show();

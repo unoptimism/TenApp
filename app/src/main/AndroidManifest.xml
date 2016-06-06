@@ -27,7 +27,11 @@
         </activity>
         <activity android:name=".ShoucangActivity">
         </activity>
-        <activity android:name=".ShoucangZhanshi">
+        <activity android:name=".VideoShoucangZhanshi">
+        </activity>
+        <activity android:name=".TextShoucangZhanshi">
+        </activity>
+        <activity android:name=".ImageShoucangZhanshi">
         </activity>
     </application>
 

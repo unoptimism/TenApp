@@ -116,7 +116,16 @@ public class TextFragment extends Fragment implements NetworkTaskCallback, ViewP
         String path = getActivity().getCacheDir().getAbsolutePath() + File.separator + "MyDown.db";// 数据库文件的绝对路径
         db = SQLiteDatabase.openOrCreateDatabase(path, null);
 
-
+        db.execSQL("create table if not exists text(_id integer primary key autoincrement," +
+                "id integer," +
+                "publishtime varchar," +
+                "shoucangTitle varchar," +
+                "shoucangAut varchar," +
+                "shoucangAutbf varchar," +
+                "shoucangTimes varchar," +
+                "shoucangText varchar," +
+                "shoucangJianjie varchar"+
+                ")");
 
         View view = inflater.inflate(R.layout.fragment_text, container, false);
         mViewPager = (ViewPager) view.findViewById(R.id.vp_text);
@@ -148,16 +157,7 @@ public class TextFragment extends Fragment implements NetworkTaskCallback, ViewP
             @Override
             public void onClick(View v) {
 
-                db.execSQL("create table if not exists text(_id integer primary key autoincrement," +
-                        "id integer," +
-                        "publishtime varchar," +
-                        "shoucangTitle varchar," +
-                        "shoucangAut varchar," +
-                        "shoucangAutbf varchar," +
-                        "shoucangTimes varchar," +
-                        "shoucangText varchar," +
-                        "shoucangJianjie varchar"+
-                        ")");
+
 
 
                 Toast.makeText(getActivity(), "收藏成功!", Toast.LENGTH_SHORT).show();

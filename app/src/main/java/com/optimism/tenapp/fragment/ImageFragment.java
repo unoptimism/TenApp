@@ -120,7 +120,15 @@ public class ImageFragment extends Fragment implements NetworkTaskCallback, View
         db = SQLiteDatabase.openOrCreateDatabase(path, null);
 
 
-
+        db.execSQL("create table if not exists image(_id integer primary key autoincrement," +
+                "id integer," +
+                "publishtime varchar," +
+                "shoucangTitle varchar," +
+                "shoucangAut varchar," +
+                "shoucangText1 varchar," +
+                "shoucangText2 varchar," +
+                "shoucangImage1 varchar"+
+                ")");
 
 
         View view = inflater.inflate(R.layout.fragment_image, container, false);
@@ -153,14 +161,7 @@ public class ImageFragment extends Fragment implements NetworkTaskCallback, View
             @Override
             public void onClick(View v) {
 
-                db.execSQL("create table if not exists Image(_id integer primary key autoincrement," +
-                        "id integer," +
-                        "publishtime varchar," +
-                        "shoucangTitle varchar," +
-                        "shoucangAut varchar," +
-                        "shoucangText1 varchar," +
-                        "shoucangText2 varchar" +
-                        ")");
+
 
 
                 Toast.makeText(getActivity(), "收藏成功!", Toast.LENGTH_SHORT).show();
@@ -182,10 +183,11 @@ public class ImageFragment extends Fragment implements NetworkTaskCallback, View
                                 String shoucangAut = jsonObject.getString("author");
                                 String shoucangText1 = jsonObject.getString("text1");
                                 String shoucangText2 = jsonObject.getString("text2");
+                                String shoucangImage1 = jsonObject.getString("image1");
 
 
-                                db.execSQL("insert into Image (id,publishtime,shoucangTitle,shoucangAut,shoucangText1,shoucangText2) values(?,?,?,?,?,?)", // ?是占位符
-                                        new Object[]{id, publishtime, shoucangTitle, shoucangAut, shoucangText1, shoucangText2});
+                                db.execSQL("insert into image (id,publishtime,shoucangTitle,shoucangAut,shoucangText1,shoucangText2,shoucangImage1) values(?,?,?,?,?,?,?)", // ?是占位符
+                                        new Object[]{id, publishtime, shoucangTitle, shoucangAut, shoucangText1, shoucangText2,shoucangImage1});
 
 
                             } catch (UnsupportedEncodingException e) {
