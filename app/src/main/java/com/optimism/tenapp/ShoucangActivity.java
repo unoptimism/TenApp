@@ -1,6 +1,7 @@
 package com.optimism.tenapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBar;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -61,7 +63,60 @@ public class ShoucangActivity extends AppCompatActivity {
             int publishtimeIndex = cursorVideo.getColumnIndex("publishtime");
             String publishtime = cursorVideo.getString(publishtimeIndex);
 
+
             VideoDuixiang duixiang = new VideoDuixiang(title, realtitle, publishtime);
+            int idIndex = cursorVideo.getColumnIndex("id");
+            String id = cursorVideo.getString(idIndex);
+
+            int authorIndex = cursorVideo.getColumnIndex("author");
+            String author = cursorVideo.getString(authorIndex);
+
+
+            int authorbriefIndex = cursorVideo.getColumnIndex("authorbrief");
+            String authorbrief = cursorVideo.getString(authorbriefIndex);
+
+            int text1Index = cursorVideo.getColumnIndex("text1");
+            String text1 = cursorVideo.getString(text1Index);
+
+            int text2Index = cursorVideo.getColumnIndex("text2");
+            String text2 = cursorVideo.getString(text2Index);
+
+            int text3Index = cursorVideo.getColumnIndex("text3");
+            String text3 = cursorVideo.getString(text3Index);
+
+            int text4Index = cursorVideo.getColumnIndex("text4");
+            String text4 = cursorVideo.getString(text4Index);
+
+            int text5Index = cursorVideo.getColumnIndex("text5");
+            String text5 = cursorVideo.getString(text5Index);
+
+            int image1Index = cursorVideo.getColumnIndex("image1");
+            String image1 = cursorVideo.getString(image1Index);
+            int image2Index = cursorVideo.getColumnIndex("image2");
+            String image2 = cursorVideo.getString(image2Index);
+            int image3Index = cursorVideo.getColumnIndex("image3");
+            String image3 = cursorVideo.getString(image3Index);
+            int image4Index = cursorVideo.getColumnIndex("image4");
+            String image4 = cursorVideo.getString(image4Index);
+            int image5Index = cursorVideo.getColumnIndex("image5");
+            String image5 = cursorVideo.getString(image5Index);
+
+
+
+            duixiang.id = id;
+            duixiang.aut = author;
+            duixiang.autbf = authorbrief;
+            duixiang.text1 = text1;
+            duixiang.text2 = text2;
+            duixiang.text3 = text3;
+            duixiang.text4 = text4;
+            duixiang.text5 = text5;
+            duixiang.image1 = "http://api.shigeten.net/" + image1;
+            duixiang.image2 = "http://api.shigeten.net/" + image2;
+            duixiang.image3 = "http://api.shigeten.net/" + image3;
+            duixiang.image4 = "http://api.shigeten.net/" + image4;
+            duixiang.image5 = "http://api.shigeten.net/" + image5;
+
             mList1.add(duixiang);
 
         }
@@ -79,7 +134,7 @@ public class ShoucangActivity extends AppCompatActivity {
             int publishtimeIndex = cursorText.getColumnIndex("publishtime");
             String publishtime = cursorText.getString(publishtimeIndex);
 
-            VideoDuixiang duixiang = new VideoDuixiang(title,jianjie,publishtime);
+            VideoDuixiang duixiang = new VideoDuixiang(title, jianjie, publishtime);
             mList1.add(duixiang);
 
         }
@@ -97,7 +152,7 @@ public class ShoucangActivity extends AppCompatActivity {
             int publishtimeIndex = cursorImage.getColumnIndex("publishtime");
             String publishtime = cursorImage.getString(publishtimeIndex);
 
-            VideoDuixiang duixiang = new VideoDuixiang(title,jianjie,publishtime);
+            VideoDuixiang duixiang = new VideoDuixiang(title, jianjie, publishtime);
             mList1.add(duixiang);
 
         }
@@ -107,8 +162,23 @@ public class ShoucangActivity extends AppCompatActivity {
         mListView1.setAdapter(mListViewAdapter1);
 
 
-
         count.setText(index + "");
+
+        mListView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ShoucangActivity.this, ShoucangZhanshi.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("Video", mList1.get(position));
+
+                intent.putExtra("k", bundle);
+
+                startActivity(intent);
+
+            }
+        });
+
+
 
     }
 
