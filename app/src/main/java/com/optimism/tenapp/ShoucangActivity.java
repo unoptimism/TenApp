@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -276,6 +278,22 @@ public class ShoucangActivity extends AppCompatActivity {
             convertView = View.inflate(ShoucangActivity.this, R.layout.mulu_list, null);
             TextView textViewTitle = (TextView) convertView.findViewById(R.id.shoucang_title);
             TextView textViewJianjie = (TextView) convertView.findViewById(R.id.shoucang_jianjie);
+            TextView textViewType = (TextView) convertView.findViewById(R.id.shoucang_type);
+            ImageView imageView = (ImageView) convertView.findViewById(R.id.shoucang_image);
+
+            if (position < videoCount) {
+                textViewType.setText("影评");
+                imageView.setBackgroundColor(Color.BLACK);
+            }
+            if (position >= videoCount && position < textCount+videoCount) {
+                textViewType.setText("文章");
+                imageView.setBackgroundColor(Color.BLUE);
+            }
+            if (position >= textCount+videoCount) {
+                textViewType.setText("图片");
+                imageView.setBackgroundColor(Color.RED);
+            }
+
 
             textViewTitle.setText(mList.get(position).title);
             textViewJianjie.setText(mList.get(position).jianjie);
