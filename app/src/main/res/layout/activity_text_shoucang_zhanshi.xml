@@ -1,0 +1,66 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.optimism.tenapp.viewpager.TextViewPagerFragment">
+
+    <FrameLayout
+        android:layout_marginTop="45dp"
+        android:paddingTop="45dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="#161616"
+                android:textSize="20sp"
+                android:id="@+id/text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+
+                android:id="@+id/text_aut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.optimism.tenapp.view.MyTextView
+                android:background="#d5d1d5"
+                android:padding="20dp"
+                android:layout_margin="20dp"
+                android:id="@+id/text_jianjie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <com.optimism.tenapp.view.MyTextView
+                android:id="@+id/text_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textColor="#161616"
+                android:textSize="20sp"
+                android:id="@+id/text_aut2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.optimism.tenapp.view.MyTextView
+                android:id="@+id/text_autbf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"/>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+
+
+
+
+</ScrollView>
